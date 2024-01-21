@@ -1,4 +1,5 @@
 from typing import TypedDict
+from ximalaya.client import XimalayaClient
 
 
 class PubInfo(TypedDict):
@@ -148,3 +149,11 @@ class UserBasicInfo(TypedDict):
     albumCountReal: int
     userCompany: str
     qualificationGuideInfos: list[str]
+
+
+def get_user_basic_info(client: XimalayaClient, uid: int) -> UserBasicInfo:
+    return client.request(f'/revision/user/basic?uid={uid}')['data']
+
+
+def get_user_detailed_info(client: XimalayaClient, uid: int):
+    return client.request(f'/revision/user?uid={uid}')['data']
